@@ -24,7 +24,7 @@ All dependencies are available through pip.
 
 ```
 $ sudo cp dlscan.py /usr/bin/dlscan
-$ sudo chmod +x /usr/bin/dlscan
+$ sudo chmod +xr /usr/bin/dlscan
 $ sudo mkdir /usr/share/dlscan
 $ sudo cp scan_gui.ui /usr/share/dlscan/
 ```
@@ -32,5 +32,5 @@ $ sudo cp scan_gui.ui /usr/share/dlscan/
 ## Lightweight (no gui)
 ```
 $ sudo cp dlscan.py /usr/bin/dlscan
-$ sudo chmod +x /usr/bin/dlscan
+$ sudo chmod +xr /usr/bin/dlscan
 ```
