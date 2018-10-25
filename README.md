@@ -3,9 +3,9 @@
 ## Overview
 Scans files from device "Dell S2825cdn". Provides a simple command line interface.
 ```
-$ dellscan --help
+$ dlscan --help
 Scan document from Dell S2825cdn device.
-Usage: dellscan file [--greyscale] [-gs] [FILE]
+Usage: dlscan file [--greyscale] [-gs] [FILE]
 Filenames cannot start with '-'.
 
 ## Requirements
@@ -17,6 +17,6 @@ All dependencies are available through pip.
 
 ## Installation:
 ```
-$ sudo cp dellscan.py /usr/bin/dellscan
-$ sudo chmod +x /usr/bin/dellscan
+$ sudo cp dlscan.py /usr/bin/dlscan
+$ sudo chmod +x /usr/bin/dlscan
 ```

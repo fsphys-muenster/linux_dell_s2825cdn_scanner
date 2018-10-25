@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Dellscan
+Dlscan
 
 Copyright (C) 2018, Fachschaftsrat Physik der Universität Münster
 
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     
     if filename == "" or filename[0] == '-':
         print("Scan document from Dell S2825cdn device.\n" + \
-              "Usage: dellscan file [--greyscale] [-gs] [FILE]\n"+\
+              "Usage: dlscan file [--greyscale] [-gs] [FILE]\n"+\
               "Filenames cannot start with '-'.")
     else:
         arr= scan(greyscale)
