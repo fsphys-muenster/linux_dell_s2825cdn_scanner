@@ -166,12 +166,65 @@ def scan(greyscale=False):
     
 def save_array_as_img(realcolors, name):
     im = Image.fromarray(np.uint8(realcolors))
-    im.save(name)
+    if name[-4] == ".":
+        im.save(name)
+    else:
+        im.save(name,"png")
+
+def gui():
+    global QtCore, QtWidgets, QtGui, uic, os, ImageQt
+    from PyQt5 import QtCore, QtWidgets, QtGui, uic
+    import os
+    from PIL.ImageQt import ImageQt
+    
+    class ScanGui(QtWidgets.QMainWindow):
+        def __init__(self):
+            QtWidgets.QMainWindow.__init__(self)
+            uipath = os.path.join(os.path.dirname(__file__), 'scan_gui.ui')
+            uic.loadUi(uipath, self)
+            
+            self.preview_view.ui.histogram.hide()
+            self.preview_view.ui.roiBtn.hide()
+            self.preview_view.ui.menuBtn.hide()
+            
+            self.settings_scan.clicked.connect(self.buttons_settings_scan)
+            self.preview_save.clicked.connect(self.buttons_preview_save)
+            
+        def buttons_settings_scan(self):
+            greyscale = self.settings_color.currentIndex() == 1
+            
+            self.realcolors = scan(greyscale)
+            colors = self.realcolors
+            self.preview_save.setEnabled(True)
+            
+            self.preview_view.ui.histogram.show()
+            if greyscale:
+                arr = self.realcolors.T
+            else:
+                arr = self.realcolors.transpose(1,0,2)
+            self.preview_view.setImage(arr)
+            self.preview_view.ui.histogram.hide()
+            
+        def buttons_preview_save(self):
+            name = QtWidgets.QFileDialog.getSaveFileName(self,
+                       self.tr("Save Image"), '', 
+                       self.tr("Image Files (*.png *.jpg *.bmp)"))[0]
+            save_array_as_img(self.realcolors, name)
+    
+    app = QtWidgets.QApplication([])
+    scan_gui = ScanGui()
+    scan_gui.show()
+    app.exec_()
+        
 
 if __name__ == "__main__":
     args = sys.argv[1:]
     greyscale = False
     filename = ""
+    display_gui = False
+    if "--gui" in args:
+        display_gui = True
+        gui()
     if len(args) == 2 and (args[0] == "--greyscale" or args[0] == "-gs"):
         greyscale = True
         filename = args[1]
@@ -181,11 +234,12 @@ if __name__ == "__main__":
     elif len(args) == 1:
         filename = args[0]
     
-    if filename == "" or filename[0] == '-':
-        print("Scan document from Dell S2825cdn device.\n" + \
-              "Usage: dlscan file [--greyscale] [-gs] [FILE]\n"+\
-              "Filenames cannot start with '-'.")
-    else:
-        arr= scan(greyscale)
-        save_array_as_img(arr, filename)
+    if not display_gui:
+        if filename == "" or filename[0] == '-':
+            print("Scan document from Dell S2825cdn device.\n" + \
+                  "Usage: dlscan [--gui] [file] [--greyscale] [-gs] [FILE]\n"+\
+                  "Filenames cannot start with '-'.")
+        else:
+            arr= scan(greyscale)
+            save_array_as_img(arr, filename)
    

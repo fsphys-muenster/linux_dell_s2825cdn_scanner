@@ -1,19 +1,23 @@
-# Dellscan
+# Dlscan
 
 ## Overview
-Scans files from device "Dell S2825cdn". Provides a simple command line interface.
+Scans files from device "Dell S2825cdn". Provides simple GUI and command line interfaces.
 ```
 $ dlscan --help
 Scan document from Dell S2825cdn device.
-Usage: dlscan file [--greyscale] [-gs] [FILE]
+Usage: dlscan [--gui] [file] [--greyscale] [-gs] [FILE]
 Filenames cannot start with '-'.
+
+```
 
 ## Requirements
 NumPy: <https://www.numpy.org/>  
-PyUSB: <https://pyusb.github.io/pyusb/>
+PyUSB: <https://pyusb.github.io/pyusb/>  
+
+Only if `--gui` is used:  
+PyQt5: <https://www.riverbankcomputing.com/software/pyqt/>
 
 All dependencies are available through pip.
-```
 
 ## Installation:
 ```
