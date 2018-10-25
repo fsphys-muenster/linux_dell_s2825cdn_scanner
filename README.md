@@ -19,7 +19,17 @@ PyQt5: <https://www.riverbankcomputing.com/software/pyqt/>
 
 All dependencies are available through pip.
 
-## Installation:
+## Installation
+### Full
+
+```
+$ sudo cp dlscan.py /usr/bin/dlscan
+$ sudo chmod +x /usr/bin/dlscan
+$ sudo mkdir /usr/share/dlscan
+$ sudo cp scan_gui.ui /usr/share/dlscan/
+```
+
+## Lightweight (no gui)
 ```
 $ sudo cp dlscan.py /usr/bin/dlscan
 $ sudo chmod +x /usr/bin/dlscan

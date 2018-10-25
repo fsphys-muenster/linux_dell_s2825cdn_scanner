@@ -24,6 +24,7 @@ import usb.core
 import usb.util
 import numpy as np
 import math
+import os
 
 from PIL import Image
 
@@ -172,16 +173,25 @@ def save_array_as_img(realcolors, name):
         im.save(name,"png")
 
 def gui():
-    global QtCore, QtWidgets, QtGui, uic, os, ImageQt
+    global QtCore, QtWidgets, QtGui, uic, ImageQt
     from PyQt5 import QtCore, QtWidgets, QtGui, uic
-    import os
     from PIL.ImageQt import ImageQt
     
     class ScanGui(QtWidgets.QMainWindow):
         def __init__(self):
             QtWidgets.QMainWindow.__init__(self)
-            uipath = os.path.join(os.path.dirname(__file__), 'scan_gui.ui')
+            
+            _uipath1 = os.path.join(os.path.dirname(__file__), 'scan_gui.ui')
+            _uipath2 = os.path.join('/usr/share/dlscan', 'scan_gui.ui')
+            if os.path.isfile(_uipath1):
+                uipath = _uipath1
+            elif os.path.isfile(_uipath2):
+                uipath = _uipath2
+            else:
+                return
+            
             uic.loadUi(uipath, self)
+                
             
             self.preview_view.ui.histogram.hide()
             self.preview_view.ui.roiBtn.hide()
@@ -194,7 +204,6 @@ def gui():
             greyscale = self.settings_color.currentIndex() == 1
             
             self.realcolors = scan(greyscale)
-            colors = self.realcolors
             self.preview_save.setEnabled(True)
             
             self.preview_view.ui.histogram.show()
