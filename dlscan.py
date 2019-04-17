@@ -201,11 +201,16 @@ def gui():
             self.preview_save.clicked.connect(self.buttons_preview_save)
             
         def buttons_settings_scan(self):
+            # Update UI buttons
+            self.settings_scan.setEnabled(False)
+            QtWidgets.QApplication.processEvents()
+            
             greyscale = self.settings_color.currentIndex() == 1
             
+            # Scan
             self.realcolors = scan(greyscale)
-            self.preview_save.setEnabled(True)
             
+            # Plot
             self.preview_view.ui.histogram.show()
             if greyscale:
                 arr = self.realcolors.T
@@ -213,6 +218,10 @@ def gui():
                 arr = self.realcolors.transpose(1,0,2)
             self.preview_view.setImage(arr)
             self.preview_view.ui.histogram.hide()
+            
+            # Update UI buttons
+            self.preview_save.setEnabled(True)
+            self.settings_scan.setEnabled(True)
             
         def buttons_preview_save(self):
             name = QtWidgets.QFileDialog.getSaveFileName(self,
