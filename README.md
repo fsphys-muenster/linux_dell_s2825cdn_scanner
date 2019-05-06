@@ -15,7 +15,8 @@ NumPy: <https://www.numpy.org/>
 PyUSB: <https://pyusb.github.io/pyusb/>  
 
 Only if `--gui` is used:  
-PyQt5: <https://www.riverbankcomputing.com/software/pyqt/>
+PyQt5: <https://www.riverbankcomputing.com/software/pyqt/>  
+PyQTGraph: <http://www.pyqtgraph.org/>  
 
 All dependencies are available through pip.
 
