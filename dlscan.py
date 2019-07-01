@@ -224,10 +224,24 @@ def gui():
             self.settings_scan.setEnabled(True)
             
         def buttons_preview_save(self):
-            name = QtWidgets.QFileDialog.getSaveFileName(self,
-                       self.tr("Save Image"), '', 
-                       self.tr("Image Files (*.png *.jpg *.bmp)"))[0]
-            save_array_as_img(self.realcolors, name)
+            dialog = QtWidgets.QFileDialog()
+            dialog.setDefaultSuffix('pdf')
+            dialog.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
+            dialog.setNameFilters(["PDF Files (*.pdf)", "Image Files (*.png *.jpg *.bmp)"])
+            if dialog.exec_() != QtGui.QDialog.Accepted:
+                return
+
+            selected_files = dialog.selectedFiles()
+            if len(selected_files) == 0:
+                return
+
+            if os.path.exists(selected_files[0]):
+                reply = QtWidgets.QMessageBox.question(self, "Overwriting file", "The selected file already exists. Do you want to overwrite it?",
+                                QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
+            if reply != QtWidgets.QMessageBox.Yes:
+                return
+
+            save_array_as_img(self.realcolors, selected_files[0])
     
     app = QtWidgets.QApplication([])
     scan_gui = ScanGui()
