@@ -238,8 +238,8 @@ def gui():
             if os.path.exists(selected_files[0]):
                 reply = QtWidgets.QMessageBox.question(self, "Overwriting file", "The selected file already exists. Do you want to overwrite it?",
                                 QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
-            if reply != QtWidgets.QMessageBox.Yes:
-                return
+                if reply != QtWidgets.QMessageBox.Yes:
+                    return
 
             save_array_as_img(self.realcolors, selected_files[0])
     
