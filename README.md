@@ -30,7 +30,7 @@ $ sudo mkdir /usr/share/dlscan
 $ sudo cp scan_gui.ui /usr/share/dlscan/
 ```
 
-## Lightweight (no gui)
+### Lightweight (no gui)
 ```
 $ sudo cp dlscan.py /usr/bin/dlscan
 $ sudo chmod +xr /usr/bin/dlscan
